@@ -85,11 +85,24 @@ main()——>startup()——>accept_request()——>serve_file()——>execute_c
   <img src="./htdocs/TinyHttp.png"/>
 </div>
 
-### 4.4 获取源码
+### 4.5 运行效果图
+
+在浏览器中输入 127.0.0.1:端口后，效果如下所是：
+<div align=center>
+  <img src="./htdocs/run.png"/>
+</div>
+
+在上图中输入 red 提交后，效果如下所是：
+
+<div align=center>
+  <img src="./htdocs/red.png"/>
+</div>
+
+### 4.6 获取源码
 http://sourceforge.net/projects/tinyhttpd
 
 
-### 4.5 参考连接：
+### 4.7 参考连接：
 1. https://blog.csdn.net/GQB1226/article/details/46844887
 2. https://blog.csdn.net/weixin_45808445/article/details/117161707
 3. https://blog.csdn.net/zs120197/article/details/114004533
