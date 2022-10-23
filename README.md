@@ -81,7 +81,7 @@ make
   <img src="./htdocs/process.png">
 </div>
 
-![工作流程图](./htdocs/process.png)
+![工作流程图](./htdocs/process.png =400x300)
 
 ### 4.3 阅读代码顺序
 main()——>startup()——>accept_request()——>serve_file()——>execute_cig()。
