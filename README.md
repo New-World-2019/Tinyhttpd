@@ -1,14 +1,14 @@
 
-# Tiny Http Server
+## Tiny Http Server
 一个简单的 http 服务器，实现了最基本的功能。
 
-# 项目主要文件
+## 项目主要文件
 1. httpd.c : 主程序
 2. Makefile : 编译文件
 3. htdocs/index.html : 服务器 index
 4. htdocs/color.cgi : CGI 脚本处理用户请求
 
-# 项目需要修改的地方
+## 项目需要修改的地方
 1. make 的时候出现错误：
 /usr/bin/ld: cannot find -lsocket
 解决方法：删除 Makefile 中的 -lsocket 即可。
@@ -28,16 +28,16 @@ BEGIN failed--compilation aborted at htdocs/color.cgi line 4.
 sudo apt install libcgi-ajax-perl
 sudo apt install libcgi-application-perl
 
-# 编译 && 运行
+## 编译 && 运行
 
 ```cpp
 make
 ./httpd
 ```
 
-# 项目源码解析
+## 项目源码解析
 
-## 主要函数
+### 主要函数
 
 * accept_request:  处理从套接字上监听到的一个 HTTP 请求，在这里可以很大一部分地体现服务器处理请求流程。
 * bad_request: 返回给客户端这是个错误请求，HTTP 状态吗 400 BAD REQUEST.
@@ -52,7 +52,7 @@ make
 * startup: 初始化 httpd 服务，包括建立套接字，绑定端口，进行监听等。
 * unimplemented: 返回给浏览器表明收到的 HTTP 请求所用的 method 不被支持。
 
-## 主要流程
+### 主要流程
 
 1. 服务器启动，在指定端口或随机选取端口绑定 httpd 服务。
 2. 收到一个 HTTP 请求时（其实就是 listen 的端口 accpet 的时候），派生一个线程运行 accept_request 函数。
@@ -65,20 +65,20 @@ make
 9. 在父进程中，关闭 cgi_input 的读取端 和 cgi_output 的写入端，如果 POST 的话，把 POST 数据写入 cgi_input，已被重定向到 STDIN，读取 cgi_output 的管道输出到客户端，该管道输入是 STDOUT。接着关闭所有管道，等待子进程结束。这一部分比较乱，
 10. 关闭与浏览器的连接，完成了一次 HTTP 请求与回应，因为 HTTP 是无连接的。
 
-## 阅读代码顺序
+### 阅读代码顺序
 main()——>startup()——>accept_request()——>serve_file()——>execute_cig()。
 
-# 获取源码
+## 获取源码
 http://sourceforge.net/projects/tinyhttpd
 
 
-参考连接：
+## 参考连接：
 1. https://blog.csdn.net/GQB1226/article/details/46844887
 2. https://blog.csdn.net/weixin_45808445/article/details/117161707
 3. https://blog.csdn.net/zs120197/article/details/114004533
 
 
-# 原 README 文件内容
+## 原 README 文件内容
   This software is copyright 1999 by J. David Blackstone.  Permission
 is granted to redistribute and modify this software under the terms of
 the GNU General Public License, available at http://www.gnu.org/ .
