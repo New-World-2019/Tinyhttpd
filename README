@@ -1,3 +1,46 @@
+
+# Tiny Http Server
+一个简单的 http 服务器，实现了最基本的功能。
+
+# 编译 && 运行
+
+```cpp
+make
+./httpd
+```
+
+# 
+
+
+项目需要修改的地方：
+1. make 的时候出现错误：
+/usr/bin/ld: cannot find -lsocket
+解决方法：删除 Makefile 中的 -lsocket 即可。
+2. make 的时候出现错误：
+httpd.c:(.text+0x1a2f): undefined reference to `pthread_create'
+这个错误的原因是 pthread 库不是 Linux 系统默认的库，连接时需要使用静态库 libpthread.a．解决方案就是在编译中加入 -lpthread参数．
+如果加入还有错误，将 -lpthread 参数放置到最后，如下所是：
+gcc -g -W -Wall　-o httpd 　httpd.c　-lpthread
+3. 启动程序后，输入对应颜色后，无法显示颜色，则修改如下：
+* color.cgi脚本没有执行权限，通过chmod +x color.cgi命令，给该文件添加执行权限；
+* index.html没有写的权限，通过chmod 600 index.html设置权限；
+* perl安装的路径不对，perl默认的安装路径是/usr/bin/perl，将color.cgi文件第一行的#!/usr/local/bin/perl -Tw修改为#!/usr/bin/perl -Tw;
+4. 如果执行过程中，服务端报错
+Can't locate CGI.pm in @INC (you may need to install the CGI module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.30.0 /usr/local/share/perl/5.30.0 /usr/lib/x86_64-linux-gnu/perl5/5.30 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl/5.30 /usr/share/perl/5.30 /usr/local/lib/site_perl /usr/lib/x86_64-linux-gnu/perl-base) at htdocs/color.cgi line 4.
+BEGIN failed--compilation aborted at htdocs/color.cgi line 4.
+解决方法为：
+sudo apt install libcgi-ajax-perl
+sudo apt install libcgi-application-perl
+获取源码：http://sourceforge.net/projects/tinyhttpd
+
+
+参考连接：
+1. https://blog.csdn.net/GQB1226/article/details/46844887
+2. https://blog.csdn.net/weixin_45808445/article/details/117161707
+3. https://blog.csdn.net/zs120197/article/details/114004533
+4. 
+
+
   This software is copyright 1999 by J. David Blackstone.  Permission
 is granted to redistribute and modify this software under the terms of
 the GNU General Public License, available at http://www.gnu.org/ .
