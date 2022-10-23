@@ -1,4 +1,3 @@
-
 ## Tiny Http Server
 一个简单的 http 服务器，实现了最基本的功能。
 
@@ -9,24 +8,35 @@
 4. htdocs/color.cgi : CGI 脚本处理用户请求
 
 ## 二、项目需要修改的地方
-1. make 的时候出现错误：
+1. make 的时候出现错误
+```cpp
 /usr/bin/ld: cannot find -lsocket
-解决方法：删除 Makefile 中的 -lsocket 即可。
-2. make 的时候出现错误：
+```
+解决方法：
+删除 Makefile 中的 -lsocket 即可。
+2. make 的时候出现错误
+```cpp
 httpd.c:(.text+0x1a2f): undefined reference to `pthread_create'
+```
 这个错误的原因是 pthread 库不是 Linux 系统默认的库，连接时需要使用静态库 libpthread.a．解决方案就是在编译中加入 -lpthread参数．
 如果加入还有错误，将 -lpthread 参数放置到最后，如下所是：
+```cpp
 gcc -g -W -Wall　-o httpd 　httpd.c　-lpthread
+```
 3. 启动程序后，输入对应颜色后，无法显示颜色，则修改如下：
 * color.cgi脚本没有执行权限，通过chmod +x color.cgi命令，给该文件添加执行权限；
 * index.html没有写的权限，通过chmod 600 index.html设置权限；
 * perl安装的路径不对，perl默认的安装路径是/usr/bin/perl，将color.cgi文件第一行的#!/usr/local/bin/perl -Tw修改为#!/usr/bin/perl -Tw;
 4. 如果执行过程中，服务端报错
+```cpp
 Can't locate CGI.pm in @INC (you may need to install the CGI module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.30.0 /usr/local/share/perl/5.30.0 /usr/lib/x86_64-linux-gnu/perl5/5.30 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl/5.30 /usr/share/perl/5.30 /usr/local/lib/site_perl /usr/lib/x86_64-linux-gnu/perl-base) at htdocs/color.cgi line 4.
 BEGIN failed--compilation aborted at htdocs/color.cgi line 4.
-解决方法为：
+```
+解决方法：
+```cpp
 sudo apt install libcgi-ajax-perl
 sudo apt install libcgi-application-perl
+```
 
 ## 三、编译 && 运行
 
@@ -64,6 +74,9 @@ make
 8. 在子进程中，把 STDOUT 重定向到 cgi_outputt 的写入端，把 STDIN 重定向到 cgi_input 的读取端，关闭 cgi_input 的写入端 和 cgi_output 的读取端，设置 request_method 的环境变量，GET 的话设置 query_string 的环境变量，POST 的话设置 content_length 的环境变量，这些环境变量都是为了给 cgi 脚本调用，接着用 execl 运行 cgi 程序。
 9. 在父进程中，关闭 cgi_input 的读取端 和 cgi_output 的写入端，如果 POST 的话，把 POST 数据写入 cgi_input，已被重定向到 STDIN，读取 cgi_output 的管道输出到客户端，该管道输入是 STDOUT。接着关闭所有管道，等待子进程结束。这一部分比较乱，
 10. 关闭与浏览器的连接，完成了一次 HTTP 请求与回应，因为 HTTP 是无连接的。
+
+
+
 
 ### 4.3 阅读代码顺序
 main()——>startup()——>accept_request()——>serve_file()——>execute_cig()。
