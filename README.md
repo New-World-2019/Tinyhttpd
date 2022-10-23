@@ -77,8 +77,8 @@ make
 
 ### 4.3 工作流程图
 
-<div align=center height="900">
-  <img src="./htdocs/process.png">
+<div align=center>
+  <img src="./htdocs/process.png" width = "200" height = "300" alt="" align=center />
 </div>
 
 ![工作流程图](./htdocs/process.png =400x300)
