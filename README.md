@@ -78,7 +78,7 @@ make
 ### 4.3 工作流程图
 
 <div align=center>
-  <img src="./htdocs/process.png" width = "900" height = "900" alt="" align=center />
+  <img src="./htdocs/TinyHttp.png"/>
 </div>
 
 ![工作流程图](./htdocs/process.png =400x300)
